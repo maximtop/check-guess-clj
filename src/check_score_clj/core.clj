@@ -5,15 +5,18 @@
 (defn get-winner [score]
   (let [[first second] (str/split score #":")]
     (cond
-     (< (read-string first) (read-string second)) "second"
-     (> (read-string first) (read-string second)) "first"
-     :else "draw")))
+      (< (bigint first) (bigint second)) :second
+      (> (bigint first) (bigint second)) :first
+     :else :draw)))
 
 (defn score [guessed, real]
   (cond
-    (= guessed real) "2"
-    (= (get-winner guessed) (get-winner real)) "1"
-    :else "0"))
+    (= guessed real) 2
+    (= (get-winner guessed) (get-winner real)) 1
+    :else 0))
 
-(defn -main [& args]
-  (println (score "6:6" "6:6")))
+(defn score [guessed, real]
+  (cond
+    (= guessed real) 2
+    (= (get-winner guessed) (get-winner real)) 1
+    :else 0))
